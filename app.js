@@ -5,15 +5,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
-const HttpError = require("./models/http-error");
+const HttpError = require("./util/http-error");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
+//app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -26,7 +25,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
@@ -48,7 +46,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://127.0.0.1/checkinApp")
+  .connect("mongodb://127.0.0.1/spm_gametrain")
   .then(() => {
     app.listen(5000);
   })

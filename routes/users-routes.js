@@ -23,6 +23,4 @@ router.post("/login", usersController.login);
 
 router.post("/updateDOB", usersController.updateDOB);
 
-router.post("/addAddress", usersController.addAddress);
-
 module.exports = router;

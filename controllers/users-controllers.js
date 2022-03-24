@@ -1,8 +1,7 @@
 const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const HttpError = require("../models/http-error");
+const HttpError = require("../util/http-error");
 const User = require("../models/user");
 
 const getUsers = async (req, res, next) => {
@@ -26,7 +25,7 @@ const signup = async (req, res, next) => {
     );
   }
 
-  const { name, email, password, dob, address } = req.body;
+  const { name, email, password, dob } = req.body;
 
   let existingUser;
   try {
@@ -63,7 +62,6 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     dob,
-    address,
   });
 
   try {
@@ -147,8 +145,8 @@ const updateDOB = async (req, res, next) => {
   }
   res.status(201).json({ email: existingUser.email, dob: existingUser.dob });
 };
-const addAddress = async (req, res, next) => {
-  const { email, address } = req.body;
+const updatePassword = async (req, res, next) => {
+  const { email, password } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -159,19 +157,26 @@ const addAddress = async (req, res, next) => {
     );
     return next(error);
   }
+  let hashedPassword;
   try {
-    User.updateOne({ email: email }, { $push: { address: address } });
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (err) {
+    const error = new HttpError(
+      "Could not create user, please try again.",
+      500
+    );
+    return next(error);
+  }
+  try {
+    User.updateOne({ email: email }, { password: hashedPassword });
   } catch (err) {
     const error = new HttpError("Error updading document = " + err, 500);
     return next(error);
   }
-  console.log(existingUser.address);
-  res
-    .status(201)
-    .json({ email: existingUser.email, address: existingUser.address });
+  res.status(201).json({ email: existingUser.email });
 };
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
 exports.updateDOB = updateDOB;
-exports.addAddress = addAddress;
+exports.updatePassword = updatePassword;
