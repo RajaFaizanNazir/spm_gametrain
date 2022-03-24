@@ -1,18 +1,57 @@
-console.log("./app.js");
+const fs = require("fs");
+const path = require("path");
+
 const express = require("express");
-const server = express();
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-const adminRoutes = require("./routes/admin-routes");
-const clintRoutes = require("./routes/clint-routes");
-const port = process.env.PORT || 3000;
+const placesRoutes = require("./routes/places-routes");
+const usersRoutes = require("./routes/users-routes");
+const HttpError = require("./models/http-error");
 
-server.use(bodyParser.json());
-server.use(adminRoutes);
-server.use(clintRoutes);
+const app = express();
 
-server.listen(port, () => {
-  console.log("Server running on port: http://localhost:" + port);
+app.use(bodyParser.json());
+
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+
+  next();
 });
-module.exports = { express, server, bodyParser };
-console.log("App.js");
+
+app.use("/api/places", placesRoutes);
+app.use("/api/users", usersRoutes);
+
+app.use((req, res, next) => {
+  const error = new HttpError("Could not find this route.", 404);
+  throw error;
+});
+
+app.use((error, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
+      console.log(err);
+    });
+  }
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || "An unknown error occurred!" });
+});
+
+mongoose
+  .connect("mongodb://127.0.0.1/checkinApp")
+  .then(() => {
+    app.listen(5000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
