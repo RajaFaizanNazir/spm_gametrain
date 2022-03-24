@@ -27,4 +27,8 @@ router.post("/createTask", taskUtils.createTask);
 /**************************************** */
 router.post("/requestForApproval", requestUtils.requestForApproval);
 /**************************************** */
+router.get("/viewTasks", taskUtils.getTasks);
+/**************************************** */
+router.get("/viewRequests", requestUtils.getRequest);
+/**************************************** */
 module.exports = router;

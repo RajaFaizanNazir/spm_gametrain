@@ -22,7 +22,7 @@ const requestForApproval = async (req, res, next) => {
   } catch (err) {
     console.log(createdRequest);
     const error = new HttpError(
-      "Error creating Request, please try again later" + err,
+      "Error creating Request, please try  again later" + err,
       500
     );
     return next(error);
@@ -34,4 +34,19 @@ const requestForApproval = async (req, res, next) => {
   });
 };
 /**************************************** */
+const getRequest = async (req, res, next) => {
+  let request;
+  try {
+    request = await Request.find();
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching Requests failed, please try again later." + err,
+      500
+    );
+    return next(error);
+  }
+  res.json({ Requests: request });
+};
+/**************************************** */
 exports.requestForApproval = requestForApproval;
+exports.getRequest = getRequest;

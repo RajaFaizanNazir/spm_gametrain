@@ -36,4 +36,19 @@ const createTask = async (req, res, next) => {
     .json({ title: createdTask.title, description: createdTask.description });
 };
 /**************************************** */
+const getTasks = async (req, res, next) => {
+  let tasks;
+  try {
+    tasks = await Task.find();
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching Tasks failed, please try again later." + err,
+      500
+    );
+    return next(error);
+  }
+  res.json({ Tasks: tasks });
+};
+/**************************************** */
 exports.createTask = createTask;
+exports.getTasks = getTasks;
