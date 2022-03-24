@@ -4,19 +4,6 @@ const bcrypt = require("bcrypt");
 const HttpError = require("../util/http-error");
 const User = require("../models/user");
 
-const getUsers = async (req, res, next) => {
-  let users;
-  try {
-    users = await User.find();
-  } catch (err) {
-    const error = new HttpError(
-      "Fetching users failed, please try again later.",
-      500
-    );
-    return next(error);
-  }
-  res.json({ users: users });
-};
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -25,7 +12,7 @@ const signup = async (req, res, next) => {
     );
   }
 
-  const { name, email, password, dob } = req.body;
+  const { name, email, password, position } = req.body;
 
   let existingUser;
   try {
@@ -61,7 +48,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password: hashedPassword,
-    dob,
+    position,
   });
 
   try {
@@ -125,8 +112,8 @@ const login = async (req, res, next) => {
     email: existingUser.email,
   });
 };
-const updateDOB = async (req, res, next) => {
-  const { email, dob } = req.body;
+const updatePosition = async (req, res, next) => {
+  const { email, position } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -138,12 +125,12 @@ const updateDOB = async (req, res, next) => {
     return next(error);
   }
   try {
-    User.updateOne({ email: email }, { dob: dob });
+    User.updateOne({ email: email }, { position: position });
   } catch (err) {
     const error = new HttpError("Error updading document = " + err, 500);
     return next(error);
   }
-  res.status(201).json({ email: existingUser.email, dob: existingUser.dob });
+  res.status(201).json({ email: existingUser.email, position: existingUser.position });
 };
 const updatePassword = async (req, res, next) => {
   const { email, password } = req.body;
@@ -175,8 +162,7 @@ const updatePassword = async (req, res, next) => {
   }
   res.status(201).json({ email: existingUser.email });
 };
-exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
-exports.updateDOB = updateDOB;
+exports.updatePosition = updatePosition;
 exports.updatePassword = updatePassword;

@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/users-routes");
+const adminRoutes = require("./routes/admin-routes");
 const HttpError = require("./util/http-error");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/users", usersRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);

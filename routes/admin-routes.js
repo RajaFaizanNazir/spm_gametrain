@@ -2,11 +2,15 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const usersController = require("../controllers/users-controllers");
+const adminController = require("../controllers/admin-controllers");
 
 const router = express.Router();
 
+
+router.get("/", adminController.getUsers);
+
 router.post(
-  "/signup",
+  "/addUser",
   [
     check("name").not().isEmpty(),
     check("email").normalizeEmail().isEmail(),
@@ -15,9 +19,12 @@ router.post(
   usersController.signup
 );
 
-router.post("/login", usersController.login);
+router.post("/signup", adminController.signup);
 
-router.post("/updatePosition", usersController.updatePosition);
+router.post("/login", adminController.login);
 
-router.post("/updatePassword", usersController.updatePassword);
+router.post("/updateUserPosition", usersController.updatePosition);
+
+router.post("/updateUserPassword", usersController.updatePassword);
+
 module.exports = router;
