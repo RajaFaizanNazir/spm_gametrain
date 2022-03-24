@@ -1,14 +1,13 @@
 const express = require("express");
 const { check } = require("express-validator");
-
+/**************************************** */
 const usersController = require("../controllers/users-controllers");
 const adminController = require("../controllers/admin-controllers");
-
+/**************************************** */
 const router = express.Router();
-
-
+/**************************************** */
 router.get("/", adminController.getUsers);
-
+/**************************************** */
 router.post(
   "/addUser",
   [
@@ -18,13 +17,13 @@ router.post(
   ],
   usersController.signup
 );
-
+/**************************************** */
 router.post("/signup", adminController.signup);
-
+/**************************************** */
 router.post("/login", adminController.login);
-
+/**************************************** */
 router.post("/updateUserPosition", usersController.updatePosition);
-
+/**************************************** */
 router.post("/updateUserPassword", usersController.updatePassword);
-
+/**************************************** */
 module.exports = router;

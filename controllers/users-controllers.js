@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const HttpError = require("../util/http-error");
 const User = require("../models/user");
-
+/**************************************** */
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -64,7 +64,7 @@ const signup = async (req, res, next) => {
 
   res.status(201).json({ userId: createdUser.id, email: createdUser.email });
 };
-
+/**************************************** */
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -112,6 +112,7 @@ const login = async (req, res, next) => {
     email: existingUser.email,
   });
 };
+/**************************************** */
 const updatePosition = async (req, res, next) => {
   const { email, position } = req.body;
   let existingUser;
@@ -130,8 +131,11 @@ const updatePosition = async (req, res, next) => {
     const error = new HttpError("Error updading document = " + err, 500);
     return next(error);
   }
-  res.status(201).json({ email: existingUser.email, position: existingUser.position });
+  res
+    .status(201)
+    .json({ email: existingUser.email, position: existingUser.position });
 };
+/**************************************** */
 const updatePassword = async (req, res, next) => {
   const { email, password } = req.body;
   let existingUser;
@@ -162,6 +166,7 @@ const updatePassword = async (req, res, next) => {
   }
   res.status(201).json({ email: existingUser.email });
 };
+/**************************************** */
 exports.signup = signup;
 exports.login = login;
 exports.updatePosition = updatePosition;

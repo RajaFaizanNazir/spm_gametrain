@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const HttpError = require("../util/http-error");
 const User = require("../models/user");
 const Admin = require("../models/admin");
-
+/**************************************** */
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -18,7 +18,7 @@ const getUsers = async (req, res, next) => {
   }
   res.json({ users: users });
 };
-
+/**************************************** */
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -78,7 +78,7 @@ const signup = async (req, res, next) => {
 
   res.status(201).json({ AdminId: createdAdmin.id, email: createdAdmin.email });
 };
-
+/**************************************** */
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -126,6 +126,7 @@ const login = async (req, res, next) => {
     email: existingAdmin.email,
   });
 };
+/**************************************** */
 exports.login = login;
 exports.signup = signup;
 exports.getUsers = getUsers;
