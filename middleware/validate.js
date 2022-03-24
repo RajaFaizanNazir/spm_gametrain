@@ -1,8 +1,7 @@
-console.log("./validate.js");
 const { body, validationResult } = require("express-validator");
 const credentialsValidator = () => {
   return [
-    body("userid").exists().isEmail(),
+    body("email").exists().isEmail(),
     body("password").exists().isLength({ min: 5 }),
   ];
 };

@@ -14,7 +14,7 @@ const requestSchema = new Schema(
     },
   },
   {
-    timeseries: true,
+    timestamps: true,
   }
 );
 /**************************************** */

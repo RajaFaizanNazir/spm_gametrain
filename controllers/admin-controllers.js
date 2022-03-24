@@ -1,9 +1,7 @@
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-
 const HttpError = require("../util/http-error");
 const User = require("../models/user");
 const Admin = require("../models/admin");
+const confidential = require("../middleware/confidential");
 /**************************************** */
 const getUsers = async (req, res, next) => {
   let users;
@@ -20,7 +18,7 @@ const getUsers = async (req, res, next) => {
 };
 /**************************************** */
 const signup = async (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
@@ -50,7 +48,7 @@ const signup = async (req, res, next) => {
 
   let hashedPassword;
   try {
-    hashedPassword = await bcrypt.hash(password, 12);
+    hashedPassword = confidential.encrypt(password);
   } catch (err) {
     const error = new HttpError(
       "Could not create user, please try again." + err,
@@ -80,6 +78,13 @@ const signup = async (req, res, next) => {
 };
 /**************************************** */
 const login = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+
   const { email, password } = req.body;
 
   let existingAdmin;
@@ -104,7 +109,7 @@ const login = async (req, res, next) => {
 
   let isValidPassword = false;
   try {
-    isValidPassword = await bcrypt.compare(password, existingAdmin.password);
+    isValidPassword = confidential.isSame(password, existingAdmin.password);
   } catch (err) {
     const error = new HttpError(
       "Could not log you in, please check your credentials and try again." +

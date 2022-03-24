@@ -1,11 +1,10 @@
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-
 const HttpError = require("../util/http-error");
 const User = require("../models/user");
+const confidential = require("../middleware/confidential");
+const validator = require("../middleware/validate");
 /**************************************** */
 const signup = async (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
@@ -27,7 +26,7 @@ const signup = async (req, res, next) => {
 
   if (existingUser) {
     const error = new HttpError(
-      "User exists already, please login instead." + err,
+      "User exists already, please login instead.",
       422
     );
     return next(error);
@@ -35,10 +34,10 @@ const signup = async (req, res, next) => {
 
   let hashedPassword;
   try {
-    hashedPassword = await bcrypt.hash(password, 12);
+    hashedPassword = confidential.encrypt(password);
   } catch (err) {
     const error = new HttpError(
-      "Could not create user, please try again." + err,
+      "Error Encrypting Password, please try again." + err,
       500
     );
     return next(error);
@@ -66,6 +65,13 @@ const signup = async (req, res, next) => {
 };
 /**************************************** */
 const login = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+
   const { email, password } = req.body;
 
   let existingUser;
@@ -90,7 +96,7 @@ const login = async (req, res, next) => {
 
   let isValidPassword = false;
   try {
-    isValidPassword = await bcrypt.compare(password, existingUser.password);
+    isValidPassword = confidential.isSame(password, existingUser.password);
   } catch (err) {
     const error = new HttpError(
       "Could not log you in, please check your credentials and try again." +
@@ -138,6 +144,12 @@ const updatePosition = async (req, res, next) => {
 };
 /**************************************** */
 const updatePassword = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const { email, password } = req.body;
   let existingUser;
   try {
@@ -151,7 +163,7 @@ const updatePassword = async (req, res, next) => {
   }
   let hashedPassword;
   try {
-    hashedPassword = await bcrypt.hash(password, 12);
+    hashedPassword = confidential.encrypt(password);
   } catch (err) {
     const error = new HttpError(
       "Could not create user, please try again." + err,
