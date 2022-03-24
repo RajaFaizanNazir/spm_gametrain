@@ -1,0 +1,25 @@
+{
+  "name": "spm_gametrain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RajaFaizanNazir/spm_gametrain.git"
+  },
+  "author": "Raja Faizan Nazir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RajaFaizanNazir/spm_gametrain/issues"
+  },
+  "homepage": "https://github.com/RajaFaizanNazir/spm_gametrain#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0"
+  }
+}
