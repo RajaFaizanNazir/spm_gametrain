@@ -11,7 +11,7 @@ const getUsers = async (req, res, next) => {
     users = await User.find();
   } catch (err) {
     const error = new HttpError(
-      "Fetching users failed, please try again later.",
+      "Fetching users failed, please try again later." + err,
       500
     );
     return next(error);
@@ -34,7 +34,7 @@ const signup = async (req, res, next) => {
     existingAdmin = await Admin.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Signing up failed, please try again later.",
+      "Signing up failed, please try again later." + err,
       500
     );
     return next(error);
@@ -53,7 +53,7 @@ const signup = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      "Could not create user, please try again.",
+      "Could not create user, please try again." + err,
       500
     );
     return next(error);
@@ -70,7 +70,7 @@ const signup = async (req, res, next) => {
   } catch (err) {
     console.log(createdAdmin);
     const error = new HttpError(
-      "Signing up failed while saving, please try again later",
+      "Signing up failed while saving, please try again later" + err,
       500
     );
     return next(error);
@@ -88,7 +88,7 @@ const login = async (req, res, next) => {
     existingAdmin = await Admin.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Logging in failed, please try again later.",
+      "Logging in failed, please try again later." + err,
       500
     );
     return next(error);
@@ -107,7 +107,8 @@ const login = async (req, res, next) => {
     isValidPassword = await bcrypt.compare(password, existingAdmin.password);
   } catch (err) {
     const error = new HttpError(
-      "Could not log you in, please check your credentials and try again.",
+      "Could not log you in, please check your credentials and try again." +
+        err,
       500
     );
     return next(error);

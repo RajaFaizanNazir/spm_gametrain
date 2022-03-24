@@ -19,7 +19,7 @@ const signup = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Signing up failed, please try again later.",
+      "Signing up failed, please try again later." + err,
       500
     );
     return next(error);
@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
 
   if (existingUser) {
     const error = new HttpError(
-      "User exists already, please login instead.",
+      "User exists already, please login instead." + err,
       422
     );
     return next(error);
@@ -38,7 +38,7 @@ const signup = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      "Could not create user, please try again.",
+      "Could not create user, please try again." + err,
       500
     );
     return next(error);
@@ -56,7 +56,7 @@ const signup = async (req, res, next) => {
   } catch (err) {
     console.log(createdUser);
     const error = new HttpError(
-      "Signing up failed while saving, please try again later",
+      "Signing up failed while saving, please try again later" + err,
       500
     );
     return next(error);
@@ -74,7 +74,7 @@ const login = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Logging in failed, please try again later.",
+      "Logging in failed, please try again later." + err,
       500
     );
     return next(error);
@@ -93,7 +93,8 @@ const login = async (req, res, next) => {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
     const error = new HttpError(
-      "Could not log you in, please check your credentials and try again.",
+      "Could not log you in, please check your credentials and try again." +
+        err,
       500
     );
     return next(error);
@@ -120,7 +121,7 @@ const updatePosition = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Can not find user with this email, please try again.",
+      "Can not find user with this email, please try again." + err,
       500
     );
     return next(error);
@@ -143,7 +144,7 @@ const updatePassword = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      "Can not find user with this email, please try again.",
+      "Can not find user with this email, please try again." + err,
       500
     );
     return next(error);
@@ -153,7 +154,7 @@ const updatePassword = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      "Could not create user, please try again.",
+      "Could not create user, please try again." + err,
       500
     );
     return next(error);

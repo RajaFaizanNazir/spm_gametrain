@@ -1,4 +1,6 @@
 const { validationResult } = require("express-validator");
+const Task = require("../models/task");
+const HttpError = require("../util/http-error");
 /**************************************** */
 const createTask = async (req, res, next) => {
   const errors = validationResult(req);
@@ -23,7 +25,7 @@ const createTask = async (req, res, next) => {
   } catch (err) {
     console.log(createdTask);
     const error = new HttpError(
-      "Error creating Taksk, please try again later",
+      "Error creating Task, please try again later" + err,
       500
     );
     return next(error);
