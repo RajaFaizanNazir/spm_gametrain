@@ -133,6 +133,5 @@ const login = async (req, res, next) => {
   });
 };
 /**************************************** */
-exports.login = login;
-exports.signup = signup;
-exports.getUsers = getUsers;
+module.exports = { login, signup, getUsers };
+/**************************************** */

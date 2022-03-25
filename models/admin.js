@@ -17,3 +17,4 @@ const adminSchema = new Schema(
 adminSchema.plugin(uniqueValidator);
 /**************************************** */
 module.exports = mongoose.model("Admin", adminSchema);
+/**************************************** */

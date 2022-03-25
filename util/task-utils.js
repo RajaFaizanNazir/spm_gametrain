@@ -50,5 +50,8 @@ const getTasks = async (req, res, next) => {
   res.json({ Tasks: tasks });
 };
 /**************************************** */
-exports.createTask = createTask;
-exports.getTasks = getTasks;
+module.exports = {
+  createTask,
+  getTasks,
+};
+/**************************************** */

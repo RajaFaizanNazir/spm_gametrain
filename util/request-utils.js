@@ -48,5 +48,8 @@ const getRequest = async (req, res, next) => {
   res.json({ Requests: request });
 };
 /**************************************** */
-exports.requestForApproval = requestForApproval;
-exports.getRequest = getRequest;
+module.exports = {
+  requestForApproval,
+  getRequest,
+};
+/**************************************** */

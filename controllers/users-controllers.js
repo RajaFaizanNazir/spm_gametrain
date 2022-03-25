@@ -180,7 +180,10 @@ const updatePassword = async (req, res, next) => {
   res.status(201).json({ email: existingUser.email });
 };
 /**************************************** */
-exports.signup = signup;
-exports.login = login;
-exports.updatePosition = updatePosition;
-exports.updatePassword = updatePassword;
+module.exports = {
+  signup,
+  login,
+  updatePosition,
+  updatePassword,
+};
+/**************************************** */
