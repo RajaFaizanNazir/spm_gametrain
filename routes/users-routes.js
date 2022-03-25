@@ -11,51 +11,51 @@ router.get("/viewTasks", taskUtils.getTasks);
 /**************************************** */
 router.get("/viewRequests", requestUtils.getRequest);
 /**************************************** */
-router.post("/signup", validator.credentialsValidator, usersController.signup);
+router.post("/signup", validator.credentialsValidator(), usersController.signup);
 /**************************************** */
-router.post("/login", validator.credentialsValidator, usersController.login);
+router.post("/login", validator.credentialsValidator(), usersController.login);
 /**************************************** */
 router.post(
   "/updatePosition",
-  validator.positionValidator,
+  validator.positionValidator(),
   usersController.updatePosition
 );
 /**************************************** */
 router.post(
   "/updatePassword",
-  validator.credentialsValidator,
+  validator.credentialsValidator(),
   usersController.updatePassword
 );
 /**************************************** */
-router.post("/createTask", validator.taskValidator, taskUtils.createTask);
+router.post("/createTask", validator.taskValidator(), taskUtils.createTask);
 /**************************************** */
 router.post(
   "/requestForApproval",
-  validator.requestValidator,
+  validator.requestValidator(),
   requestUtils.requestForApproval
 );
 /**************************************** */
 router.post(
   "/viewTasksUnder",
-  validator.emailValidator,
+  validator.emailValidator(),
   taskUtils.getTasksUnder
 );
 /**************************************** */
 router.post(
   "/viewTasksAssignedTo",
-  validator.emailValidator,
+  validator.emailValidator(),
   taskUtils.getTasksAssignedTo
 );
 /**************************************** */
 router.post(
   "/viewRequestsFrom",
-  validator.emailValidator,
+  validator.emailValidator(),
   requestUtils.getRequestsFrom
 );
 /**************************************** */
 router.post(
   "/viewRequestsFor",
-  validator.emailValidator,
+  validator.emailValidator(),
   requestUtils.getRequestsFor
 );
 /**************************************** */

@@ -23,7 +23,7 @@ const getAdminByEmail = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-
+  const { email } = req.body;
   let existingAdmin;
   try {
     existingAdmin = await Admin.findOne({ email: email });
@@ -91,7 +91,6 @@ const signup = async (req, res, next) => {
   try {
     await createdAdmin.save();
   } catch (err) {
-    console.log(createdAdmin);
     const error = new HttpError(
       "Signing up failed while saving, please try again later" + err,
       500

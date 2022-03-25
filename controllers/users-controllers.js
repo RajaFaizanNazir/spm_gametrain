@@ -24,7 +24,7 @@ const getUsersByEmail = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-
+  const { email } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -32,7 +32,6 @@ const getUsersByEmail = async (req, res, next) => {
     const error = new HttpError("Please try again later." + err, 500);
     return next(error);
   }
-
   if (!existingUser) {
     const error = new HttpError("Invalid Email, Not found.", 403);
     return next(error);
@@ -93,7 +92,6 @@ const signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (err) {
-    console.log(createdUser);
     const error = new HttpError(
       "Signing up failed while saving, please try again later" + err,
       500
@@ -111,9 +109,7 @@ const login = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-
   const { email, password } = req.body;
-
   let existingUser;
 
   try {
@@ -125,7 +121,6 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
   if (!existingUser) {
     const error = new HttpError(
       "Invalid credentials, could not log you in.",
@@ -133,7 +128,6 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
   let isValidPassword = false;
   try {
     isValidPassword = confidential.isSame(password, existingUser.password);
@@ -145,7 +139,6 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
   if (!isValidPassword) {
     const error = new HttpError(
       "Invalid credentials, could not log you in.",
@@ -153,7 +146,6 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
   res.json({
     userId: existingUser.id,
     email: existingUser.email,

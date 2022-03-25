@@ -18,31 +18,31 @@ router.get("/viewRequests", requestUtils.getRequest);
 /**************************************** */
 router.post(
   "/userByEmail",
-  validator.emailValidator,
+  validator.emailValidator(),
   usersController.getUsersByEmail
 );
 /**************************************** */
 router.post(
   "/adminByEmail",
-  validator.emailValidator,
+  validator.emailValidator(),
   adminController.getAdminByEmail
 );
 /**************************************** */
-router.post("/addUser", validator.credentialsValidator, usersController.signup);
+router.post("/addUser", validator.credentialsValidator(), usersController.signup);
 /**************************************** */
-router.post("/signup", validator.credentialsValidator, adminController.signup);
+router.post("/signup", validator.credentialsValidator(), adminController.signup);
 /**************************************** */
-router.post("/login", validator.credentialsValidator, adminController.login);
+router.post("/login", validator.credentialsValidator(), adminController.login);
 /**************************************** */
 router.post(
   "/updateUserPosition",
-  validator.positionValidator,
+  validator.positionValidator(),
   usersController.updatePosition
 );
 /**************************************** */
 router.post(
   "/updateUserPassword",
-  validator.credentialsValidator,
+  validator.credentialsValidator(),
   usersController.updatePassword
 );
 /**************************************** */
