@@ -71,5 +71,9 @@ router.post("/acceptRequest", requestUtils.acceptRequest);
 /**************************************** */
 router.post("/rejectRequest", requestUtils.rejectRequest);
 /**************************************** */
+router.post("/assignTask", taskUtils.assignTask);
+/**************************************** */
+router.post("/setPM", taskUtils.setPM);
+/**************************************** */
 module.exports = router;
 /**************************************** */

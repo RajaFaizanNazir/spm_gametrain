@@ -129,6 +129,92 @@ const getTasksAssignedTo = async (req, res, next) => {
   });
 };
 /**************************************** */
+const assignTask = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { TaskID, UserEmail } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Task.findById(TaskID);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: UserEmail });
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Task.findOneAndUpdate(
+      { id: TaskID },
+      { assignedTo: existingUser.id },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Task: existingTask });
+};
+/**************************************** */
+const setPM = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { TaskID, UserEmail } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Task.findById(TaskID);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: UserEmail });
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Task.findOneAndUpdate(
+      { id: TaskID },
+      { under: existingUser.id },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Task: existingTask });
+};
+/**************************************** */
 const updateTitle = async (req, res, next) => {
   const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
@@ -235,5 +321,7 @@ module.exports = {
   updateTitle,
   updateDescription,
   completeTask,
+  assignTask,
+  setPM,
 };
 /**************************************** */
