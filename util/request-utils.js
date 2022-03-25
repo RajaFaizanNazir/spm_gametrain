@@ -1,9 +1,9 @@
-const { validationResult } = require("express-validator");
+const validator = require("../middleware/validate");
 const Request = require("../models/request");
 const HttpError = require("../util/http-error");
 /**************************************** */
 const requestForApproval = async (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)

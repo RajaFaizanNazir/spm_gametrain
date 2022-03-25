@@ -1,21 +1,21 @@
-const { validationResult } = require("express-validator");
+const validator = require("../middleware/validate");
 const Task = require("../models/task");
 const HttpError = require("../util/http-error");
 /**************************************** */
 const createTask = async (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
 
-  const { title, description, assignedto, under, status } = req.body;
+  const { title, description, assignedTo, under, status } = req.body;
 
   const createdTask = new Task({
     title,
     description,
-    assignedto,
+    assignedTo,
     under,
     status,
   });
