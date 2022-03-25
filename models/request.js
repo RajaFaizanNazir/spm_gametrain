@@ -7,6 +7,8 @@ const requestSchema = new Schema(
     devComments: { type: String, required: true },
     pmComments: { type: String, default: "" },
     taskId: { type: mongoose.Types.ObjectId, required: true, ref: "Task" },
+    from: { type: mongoose.Types.ObjectId, ref: "User" },
+    for: { type: mongoose.Types.ObjectId, ref: "User" },
     status: {
       type: String,
       enum: ["ACCEPTED", "PENDING APPROVAL", "REJECTED"],

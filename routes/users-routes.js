@@ -7,6 +7,10 @@ const validator = require("../middleware/validate");
 /**************************************** */
 const router = express.Router();
 /**************************************** */
+router.get("/viewTasks", taskUtils.getTasks);
+/**************************************** */
+router.get("/viewRequests", requestUtils.getRequest);
+/**************************************** */
 router.post("/signup", validator.credentialsValidator, usersController.signup);
 /**************************************** */
 router.post("/login", validator.credentialsValidator, usersController.login);
@@ -31,9 +35,29 @@ router.post(
   requestUtils.requestForApproval
 );
 /**************************************** */
-router.get("/viewTasks", taskUtils.getTasks);
+router.post(
+  "/viewTasksUnder",
+  validator.emailValidator,
+  taskUtils.getTasksUnder
+);
 /**************************************** */
-router.get("/viewRequests", requestUtils.getRequest);
+router.post(
+  "/viewTasksAssignedTo",
+  validator.emailValidator,
+  taskUtils.getTasksAssignedTo
+);
+/**************************************** */
+router.post(
+  "/viewRequestsFrom",
+  validator.emailValidator,
+  requestUtils.getRequestsFrom
+);
+/**************************************** */
+router.post(
+  "/viewRequestsFor",
+  validator.emailValidator,
+  requestUtils.getRequestsFor
+);
 /**************************************** */
 module.exports = router;
 /**************************************** */

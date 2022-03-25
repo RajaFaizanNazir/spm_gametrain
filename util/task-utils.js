@@ -49,9 +49,80 @@ const getTasks = async (req, res, next) => {
   }
   res.json({ Tasks: tasks });
 };
+const getTasksUnder = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError("Invalid Email, Not found.", 403);
+    return next(error);
+  }
+  let existingTask;
+  try {
+    existingTask = await Task.find({ under: existingUser.id });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+  if (!existingTask) {
+    const error = new HttpError("No Task found.", 403);
+    return next(error);
+  }
+  res.json({
+    Task: existingTask,
+  });
+};
+/**************************************** */
+const getTasksAssignedTo = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError("Invalid Email, Not found.", 403);
+    return next(error);
+  }
+  let existingTask;
+  try {
+    existingTask = await Task.find({ assignedTo: existingUser.id });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+  if (!existingTask) {
+    const error = new HttpError("No Task found.", 403);
+    return next(error);
+  }
+  res.json({
+    Task: existingTask,
+  });
+};
 /**************************************** */
 module.exports = {
   createTask,
   getTasks,
+  getTasksUnder,
+  getTasksAssignedTo,
 };
 /**************************************** */
