@@ -1,6 +1,7 @@
 const validator = require("../middleware/validate");
 const Task = require("../models/task");
 const HttpError = require("../util/http-error");
+const User = require("../models/user");
 /**************************************** */
 const createTask = async (req, res, next) => {
   const errors = validator.validationResult(req);
