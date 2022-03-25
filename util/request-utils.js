@@ -56,6 +56,7 @@ const getRequestsFrom = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
+  const { email } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -91,6 +92,7 @@ const getRequestsFor = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
+  const { email } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });

@@ -49,6 +49,7 @@ const getTasks = async (req, res, next) => {
   }
   res.json({ Tasks: tasks });
 };
+/**************************************** */
 const getTasksUnder = async (req, res, next) => {
   const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
@@ -56,6 +57,7 @@ const getTasksUnder = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
+  const { email } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -91,6 +93,7 @@ const getTasksAssignedTo = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
+  const { email } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
