@@ -42,6 +42,36 @@
 					"response": []
 				},
 				{
+					"name": "View Users By Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"faizan@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/admin/userByEmail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"admin",
+								"userByEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "View Tasks Under",
 					"request": {
 						"method": "POST",
@@ -202,6 +232,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "View Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/admin/admins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"admin",
+								"admins"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -310,7 +361,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"rajafaizannazir@gmail.com\",\n    \"password\": \"faizan123\"\n}",
+							"raw": "{\n    \"email\": \"faizan@gmail.com\",\n    \"password\": \"nazir123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
