@@ -26,6 +26,14 @@ const emailValidator = () => {
   return [body("email").exists().isEmail()];
 };
 /**************************************** */
+const taskstateValidator = () => {
+  return [body("UserEmail").exists().isEmail(), body("TaskID").exists()];
+};
+/**************************************** */
+const idValidator = () => {
+  return [body("id").exists()];
+};
+/**************************************** */
 module.exports = {
   credentialsValidator,
   taskValidator,
@@ -33,5 +41,8 @@ module.exports = {
   requestValidator,
   emailValidator,
   validationResult,
+  body,
+  taskstateValidator,
+  idValidator,
 };
 /**************************************** */

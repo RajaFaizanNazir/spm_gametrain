@@ -31,9 +31,13 @@ router.post(
   usersController.updatePassword
 );
 /**************************************** */
-router.post("/updateTaskTitle", taskUtils.updateTitle);
+router.post("/updateTaskTitle", validator.idValidator(), taskUtils.updateTitle);
 /**************************************** */
-router.post("/updateTaskDescription", taskUtils.updateDescription);
+router.post(
+  "/updateTaskDescription",
+  validator.idValidator(),
+  taskUtils.updateDescription
+);
 /**************************************** */
 router.post("/createTask", validator.taskValidator(), taskUtils.createTask);
 /**************************************** */
@@ -67,13 +71,25 @@ router.post(
   requestUtils.getRequestsFor
 );
 /**************************************** */
-router.post("/acceptRequest", requestUtils.acceptRequest);
+router.post(
+  "/acceptRequest",
+  validator.idValidator(),
+  requestUtils.acceptRequest
+);
 /**************************************** */
-router.post("/rejectRequest", requestUtils.rejectRequest);
+router.post(
+  "/rejectRequest",
+  validator.idValidator(),
+  requestUtils.rejectRequest
+);
 /**************************************** */
-router.post("/assignTask", taskUtils.assignTask);
+router.post(
+  "/assignTask",
+  validator.taskstateValidator(),
+  taskUtils.assignTask
+);
 /**************************************** */
-router.post("/setPM", taskUtils.setPM);
+router.post("/setPM", validator.taskstateValidator(), taskUtils.setPM);
 /**************************************** */
 module.exports = router;
 /**************************************** */
