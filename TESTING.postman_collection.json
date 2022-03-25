@@ -568,6 +568,66 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Assign Task by Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"TaskID\": \"623ce3fcd67f7308dbf15480\",\n    \"UserEmail\": \"faizan@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/assignTask",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"assignTask"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign PM by Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"TaskID\": \"623ce3fcd67f7308dbf15480\",\n    \"UserEmail\": \"faizan@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/setPM",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"setPM"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
