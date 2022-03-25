@@ -11,7 +11,11 @@ router.post("/signup", validator.credentialsValidator, usersController.signup);
 /**************************************** */
 router.post("/login", validator.credentialsValidator, usersController.login);
 /**************************************** */
-router.post("/updatePosition", usersController.updatePosition);
+router.post(
+  "/updatePosition",
+  validator.positionValidator,
+  usersController.updatePosition
+);
 /**************************************** */
 router.post(
   "/updatePassword",
@@ -19,9 +23,13 @@ router.post(
   usersController.updatePassword
 );
 /**************************************** */
-router.post("/createTask", taskUtils.createTask);
+router.post("/createTask", validator.taskValidator, taskUtils.createTask);
 /**************************************** */
-router.post("/requestForApproval", requestUtils.requestForApproval);
+router.post(
+  "/requestForApproval",
+  validator.requestValidator,
+  requestUtils.requestForApproval
+);
 /**************************************** */
 router.get("/viewTasks", taskUtils.getTasks);
 /**************************************** */

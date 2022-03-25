@@ -16,7 +16,11 @@ router.post("/signup", validator.credentialsValidator, adminController.signup);
 /**************************************** */
 router.post("/login", validator.credentialsValidator, adminController.login);
 /**************************************** */
-router.post("/updateUserPosition", usersController.updatePosition);
+router.post(
+  "/updateUserPosition",
+  validator.positionValidator,
+  usersController.updatePosition
+);
 /**************************************** */
 router.post(
   "/updateUserPassword",

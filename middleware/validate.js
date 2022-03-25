@@ -6,17 +6,22 @@ const credentialsValidator = () => {
   ];
 };
 
-const adminAddValidator = () => {
+const taskValidator = () => {
+  return [body("title").exists(), body("description").exists()];
+};
+const positionValidator = () => {
   return [
-    body("id").exists().isNumeric(),
-    body("name").exists(),
-    body("company").exists(),
-    body("quantity").exists().isNumeric(),
-    body("price").exists().isNumeric(),
+    body("email").exists().isEmail(),
+    body("position").exists().isIn(["PM", "DEV"]),
   ];
+};
+const requestValidator = () => {
+  return [body("devComments").exists(), body("taskId").exists()];
 };
 module.exports = {
   credentialsValidator,
-  adminAddValidator,
+  taskValidator,
+  positionValidator,
+  requestValidator,
   validationResult,
 };
