@@ -3,6 +3,46 @@ const User = require("../models/user");
 const confidential = require("../middleware/confidential");
 const validator = require("../middleware/validate");
 /**************************************** */
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find();
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching users failed, please try again later." + err,
+      500
+    );
+    return next(error);
+  }
+  res.json({ users: users });
+};
+/**************************************** */
+const getUsersByEmail = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError("Invalid Email, Not found.", 403);
+    return next(error);
+  }
+  res.json({
+    ID: existingUser.id,
+    email: existingUser.email,
+  });
+};
+/**************************************** */
 const signup = async (req, res, next) => {
   const errors = validator.validationResult(req);
   if (!errors.isEmpty()) {
@@ -185,5 +225,7 @@ module.exports = {
   login,
   updatePosition,
   updatePassword,
+  getUsers,
+  getUsersByEmail,
 };
 /**************************************** */

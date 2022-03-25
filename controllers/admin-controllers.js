@@ -1,20 +1,45 @@
 const HttpError = require("../util/http-error");
-const User = require("../models/user");
 const Admin = require("../models/admin");
 const confidential = require("../middleware/confidential");
 /**************************************** */
-const getUsers = async (req, res, next) => {
-  let users;
+const getAdmins = async (req, res, next) => {
+  let admins;
   try {
-    users = await User.find();
+    admins = await Admin.find();
   } catch (err) {
     const error = new HttpError(
-      "Fetching users failed, please try again later." + err,
+      "Fetching Admins failed, please try again later." + err,
       500
     );
     return next(error);
   }
-  res.json({ users: users });
+  res.json({ Admins: admins });
+};
+/**************************************** */
+const getAdminByEmail = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+
+  let existingAdmin;
+  try {
+    existingAdmin = await Admin.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Please try again later." + err, 500);
+    return next(error);
+  }
+
+  if (!existingAdmin) {
+    const error = new HttpError("Invalid Email, Not found.", 403);
+    return next(error);
+  }
+  res.json({
+    ID: existingAdmin.id,
+    email: existingAdmin.email,
+  });
 };
 /**************************************** */
 const signup = async (req, res, next) => {
@@ -133,5 +158,10 @@ const login = async (req, res, next) => {
   });
 };
 /**************************************** */
-module.exports = { login, signup, getUsers };
+module.exports = {
+  login,
+  signup,
+  getAdmins,
+  getAdminByEmail,
+};
 /**************************************** */

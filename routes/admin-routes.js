@@ -8,7 +8,25 @@ const validator = require("../middleware/validate");
 /**************************************** */
 const router = express.Router();
 /**************************************** */
-router.get("/", adminController.getUsers);
+router.get("/users", usersController.getUsers);
+/**************************************** */
+router.get("/admins", adminController.getAdmins);
+/**************************************** */
+router.get("/viewTasks", taskUtils.getTasks);
+/**************************************** */
+router.get("/viewRequests", requestUtils.getRequest);
+/**************************************** */
+router.post(
+  "/userByEmail",
+  validator.emailValidator,
+  usersController.getUsersByEmail
+);
+/**************************************** */
+router.post(
+  "/adminByEmail",
+  validator.emailValidator,
+  adminController.getAdminByEmail
+);
 /**************************************** */
 router.post("/addUser", validator.credentialsValidator, usersController.signup);
 /**************************************** */
@@ -27,10 +45,6 @@ router.post(
   validator.credentialsValidator,
   usersController.updatePassword
 );
-/**************************************** */
-router.get("/viewTasks", taskUtils.getTasks);
-/**************************************** */
-router.get("/viewRequests", requestUtils.getRequest);
 /**************************************** */
 module.exports = router;
 /**************************************** */

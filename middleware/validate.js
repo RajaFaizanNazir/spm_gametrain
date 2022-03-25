@@ -22,11 +22,16 @@ const requestValidator = () => {
   return [body("devComments").exists(), body("taskId").exists()];
 };
 /**************************************** */
+const emailValidator = () => {
+  return [body("email").exists().isEmail()];
+};
+/**************************************** */
 module.exports = {
   credentialsValidator,
   taskValidator,
   positionValidator,
   requestValidator,
+  emailValidator,
   validationResult,
 };
 /**************************************** */
