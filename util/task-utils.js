@@ -40,7 +40,7 @@ const createTask = async (req, res, next) => {
 const getTasks = async (req, res, next) => {
   let tasks;
   try {
-    tasks = await Task.find();
+    tasks = await Task.find().populate("assignedTo").populate("under");
   } catch (err) {
     const error = new HttpError(
       "Fetching Tasks failed, please try again later." + err,
@@ -48,7 +48,9 @@ const getTasks = async (req, res, next) => {
     );
     return next(error);
   }
-  res.json({ Tasks: tasks });
+  res.json({
+    Tasks: tasks,
+  });
 };
 /**************************************** */
 const getTasksUnder = async (req, res, next) => {
@@ -73,7 +75,9 @@ const getTasksUnder = async (req, res, next) => {
   }
   let existingTask;
   try {
-    existingTask = await Task.find({ under: existingUser.id });
+    existingTask = await Task.find({ under: existingUser.id })
+      .populate("assignedTo")
+      .populate("under");
   } catch (err) {
     const error = new HttpError("Please try again later." + err, 500);
     return next(error);
@@ -109,7 +113,9 @@ const getTasksAssignedTo = async (req, res, next) => {
   }
   let existingTask;
   try {
-    existingTask = await Task.find({ assignedTo: existingUser.id });
+    existingTask = await Task.find({ assignedTo: existingUser.id })
+      .populate("assignedTo")
+      .populate("under");
   } catch (err) {
     const error = new HttpError("Please try again later." + err, 500);
     return next(error);

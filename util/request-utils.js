@@ -38,7 +38,10 @@ const requestForApproval = async (req, res, next) => {
 const getRequest = async (req, res, next) => {
   let request;
   try {
-    request = await Request.find();
+    request = await Request.find()
+      .populate("from")
+      .populate("for")
+      .populate("taskId");
   } catch (err) {
     const error = new HttpError(
       "Fetching Requests failed, please try again later." + err,
@@ -71,7 +74,10 @@ const getRequestsFrom = async (req, res, next) => {
   }
   let existingRequest;
   try {
-    existingRequest = await Request.find({ from: existingUser.id });
+    existingRequest = await Request.find({ from: existingUser.id })
+      .populate("from")
+      .populate("for")
+      .populate("taskId");
   } catch (err) {
     const error = new HttpError("Please try again later." + err, 500);
     return next(error);
@@ -107,7 +113,10 @@ const getRequestsFor = async (req, res, next) => {
   }
   let existingRequest;
   try {
-    existingRequest = await Request.find({ for: existingUser.id });
+    existingRequest = await Request.find({ for: existingUser.id })
+      .populate("from")
+      .populate("for")
+      .populate("taskId");
   } catch (err) {
     const error = new HttpError("Please try again later." + err, 500);
     return next(error);
