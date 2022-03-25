@@ -1,6 +1,7 @@
 const validator = require("../middleware/validate");
 const Request = require("../models/request");
-const User = require("..//models/user");
+const User = require("../models/user");
+const Taskutils = require("../util/task-utils");
 const HttpError = require("../util/http-error");
 /**************************************** */
 const requestForApproval = async (req, res, next) => {
@@ -130,10 +131,80 @@ const getRequestsFor = async (req, res, next) => {
   });
 };
 /**************************************** */
+const acceptRequest = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { id } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Request.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Request.findOneAndUpdate(
+      { id: id },
+      { status: "ACCEPTED" },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  Tid = existingTask.taskId;
+  Taskutils.completeTask(Tid, req, res, next);
+  res.status(201).json({ Request: existingTask });
+};
+/**************************************** */
+const rejectRequest = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { id } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Request.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Request.findOneAndUpdate(
+      { id: id },
+      { status: "REJECTED" },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Request: existingTask });
+};
+/**************************************** */
 module.exports = {
   requestForApproval,
   getRequest,
   getRequestsFrom,
   getRequestsFor,
+  acceptRequest,
+  rejectRequest,
 };
 /**************************************** */

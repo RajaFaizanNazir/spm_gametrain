@@ -165,7 +165,13 @@ const updatePosition = async (req, res, next) => {
     return next(error);
   }
   try {
-    User.updateOne({ email: email }, { position: position });
+    existingUser = await User.findOneAndUpdate(
+      { email: email },
+      { position: position },
+      {
+        new: true,
+      }
+    );
   } catch (err) {
     const error = new HttpError("Error updading document = " + err, 500);
     return next(error);
@@ -204,7 +210,13 @@ const updatePassword = async (req, res, next) => {
     return next(error);
   }
   try {
-    User.updateOne({ email: email }, { password: hashedPassword });
+    existingUser = await User.findOneAndUpdate(
+      { email: email },
+      { password: hashedPassword },
+      {
+        new: true,
+      }
+    );
   } catch (err) {
     const error = new HttpError("Error updading document = " + err, 500);
     return next(error);

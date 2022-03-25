@@ -129,10 +129,111 @@ const getTasksAssignedTo = async (req, res, next) => {
   });
 };
 /**************************************** */
+const updateTitle = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { id, title } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Task.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Task.findOneAndUpdate(
+      { id: id },
+      { title: title },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Task: existingTask });
+};
+/**************************************** */
+const updateDescription = async (req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { id, description } = req.body;
+  let existingTask;
+  try {
+    existingTask = await Task.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find user with this email, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Task.findOneAndUpdate(
+      { id: id },
+      { description: description },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Task: existingTask });
+};
+/**************************************** */
+const completeTask = async (id, req, res, next) => {
+  const errors = validator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  let existingTask;
+  try {
+    existingTask = await Task.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Can not find Task, please try again." + err,
+      500
+    );
+    return next(error);
+  }
+  try {
+    existingTask = await Task.findOneAndUpdate(
+      { id: id },
+      { status: "COMPLETE" },
+      {
+        new: true,
+      }
+    );
+  } catch (err) {
+    const error = new HttpError("Error updading document = " + err, 500);
+    return next(error);
+  }
+  res.status(201).json({ Task: existingTask });
+};
+/**************************************** */
 module.exports = {
   createTask,
   getTasks,
   getTasksUnder,
   getTasksAssignedTo,
+  updateTitle,
+  updateDescription,
+  completeTask,
 };
 /**************************************** */

@@ -11,7 +11,11 @@ router.get("/viewTasks", taskUtils.getTasks);
 /**************************************** */
 router.get("/viewRequests", requestUtils.getRequest);
 /**************************************** */
-router.post("/signup", validator.credentialsValidator(), usersController.signup);
+router.post(
+  "/signup",
+  validator.credentialsValidator(),
+  usersController.signup
+);
 /**************************************** */
 router.post("/login", validator.credentialsValidator(), usersController.login);
 /**************************************** */
@@ -26,6 +30,10 @@ router.post(
   validator.credentialsValidator(),
   usersController.updatePassword
 );
+/**************************************** */
+router.post("/updateTaskTitle", taskUtils.updateTitle);
+/**************************************** */
+router.post("/updateTaskDescription", taskUtils.updateDescription);
 /**************************************** */
 router.post("/createTask", validator.taskValidator(), taskUtils.createTask);
 /**************************************** */
@@ -58,6 +66,10 @@ router.post(
   validator.emailValidator(),
   requestUtils.getRequestsFor
 );
+/**************************************** */
+router.post("/acceptRequest", requestUtils.acceptRequest);
+/**************************************** */
+router.post("/rejectRequest", requestUtils.rejectRequest);
 /**************************************** */
 module.exports = router;
 /**************************************** */
