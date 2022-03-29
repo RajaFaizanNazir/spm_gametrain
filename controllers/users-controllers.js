@@ -209,18 +209,24 @@ const updatePassword = async (req, res, next) => {
     );
     return next(error);
   }
-  try {
-    existingUser = await User.findOneAndUpdate(
-      { email: email },
-      { password: hashedPassword },
-      {
-        new: true,
-      }
-    );
-  } catch (err) {
-    const error = new HttpError("Error updading document = " + err, 500);
-    return next(error);
-  }
+  existingUser.password = hashedPassword;
+  existingUser.save(function (err) {
+    if (err) {
+      console.error("ERROR UPDATING DOCUMENT:" + err);
+    }
+  });
+  // try {
+  //   existingUser = await User.findOneAndUpdate(
+  //     { email: email },
+  //     { password: hashedPassword },
+  //     {
+  //       new: true,
+  //     }
+  //   );
+  // } catch (err) {
+  //   const error = new HttpError("Error updading document = " + err, 500);
+  //   return next(error);
+  // }
   res.status(201).json({ email: existingUser.email });
 };
 /**************************************** */
