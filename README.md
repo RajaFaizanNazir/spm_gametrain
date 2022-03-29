@@ -11,4 +11,4 @@ Technologies Used:
 * Node JS
 * Express JS
 * Mongo DB
-* Post Man
+* Post Mangametrain
