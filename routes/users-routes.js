@@ -1,8 +1,8 @@
 const express = require("express");
 /**************************************** */
 const usersController = require("../controllers/users-controllers");
-const taskUtils = require("../util/task-utils");
-const requestUtils = require("../util/request-utils");
+const taskUtils = require("../controllers/task-controllers");
+const requestUtils = require("../controllers/request-controllers");
 const validator = require("../middleware/validate");
 /**************************************** */
 const router = express.Router();
