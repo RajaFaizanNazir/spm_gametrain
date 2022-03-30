@@ -1,5 +1,7 @@
+process.env.TOKEN_SECRET = "blochain_gametrain";
+process.env.PORT = 5000;
+/**************************************** */
 const fs = require("fs");
-const path = require("path");
 /**************************************** */
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -48,7 +50,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect("mongodb://127.0.0.1/spm_gametrain")
   .then(() => {
-    app.listen(5000);
+    app.listen(process.env.PORT);
   })
   .catch((err) => {
     console.log(err);
