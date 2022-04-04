@@ -6,6 +6,41 @@
 	},
 	"item": [
 		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Admin Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"raja faizan nazir\",\n    \"email\": \"rfaizann@gmail.com\",\n    \"password\": \"faizan123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/admin/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"admin",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "View",
 			"item": [
 				{
@@ -72,168 +107,6 @@
 					"response": []
 				},
 				{
-					"name": "View Tasks Under",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewTasksUnder",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewTasksUnder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "View Tasks Assigned To",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewTasksAssignedTo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewTasksAssignedTo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "View Requests For",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewRequestsFor",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewRequestsFor"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "View Tasks",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewTasks",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewTasks"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "View Requests From",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewRequestsFrom",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewRequestsFrom"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "View Requests",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/api/users/viewRequests",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"viewRequests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "View Admins",
 					"request": {
 						"method": "GET",
@@ -249,101 +122,6 @@
 								"api",
 								"admin",
 								"admins"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Create",
-			"item": [
-				{
-					"name": "User Signup as DEV",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"raja faizan nazir\",\n    \"email\": \"rajafaizannazir@gmail.com\",\n    \"password\": \"faizan123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/signup",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Task",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"Task 1\",\n    \"description\": \"Very first project of the company\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/createTask",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"createTask"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Request For Approval",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"devComments\": \"I have done it, please accept it\",\n    \"taskId\": \"623ce3fcd67f7308dbf15480\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/requestForApproval",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"requestForApproval"
 							]
 						}
 					},
@@ -383,20 +161,15 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Update",
-			"item": [
+				},
 				{
-					"name": "update User Possition",
+					"name": "Admin Login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"faizan@gmail.com\",\n    \"position\": \"DEV\"\n}",
+							"raw": "{\n    \"email\": \"rajafaizannazir@gmail.com\",\n    \"password\": \"faizan123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -404,7 +177,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/updatePosition",
+							"raw": "http://localhost:5000/api/admin/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -412,13 +185,18 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"users",
-								"updatePosition"
+								"admin",
+								"login"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
 				{
 					"name": "User Password Update",
 					"request": {
@@ -448,15 +226,20 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
 				{
-					"name": "Update Task Title",
+					"name": "User Password Update",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"623ce3fcd67f7308dbf15480\",\n    \"title\": \"Task 1\"\n}",
+							"raw": "{\n    \"email\": \"faizan@gmail.com\",\n    \"password\": \"nazir123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -464,7 +247,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/updateTaskTitle",
+							"raw": "http://localhost:5000/api/users/updatePassword",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -473,157 +256,7 @@
 							"path": [
 								"api",
 								"users",
-								"updateTaskTitle"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Task Description",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"623ce3fcd67f7308dbf15480\",\n    \"description\": \"Very first\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/updateTaskTitle",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"updateTaskTitle"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Accept Request",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"623cea16fdcee2382dc17dcb\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/acceptRequest",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"acceptRequest"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Reject Request",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"623cea16fdcee2382dc17dcb\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/rejectRequest",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"rejectRequest"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Assign Task by Email",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"TaskID\": \"623ce3fcd67f7308dbf15480\",\n    \"UserEmail\": \"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/assignTask",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"assignTask"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Assign PM by Email",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"TaskID\": \"623ce3fcd67f7308dbf15480\",\n    \"UserEmail\": \"faizan@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/users/setPM",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users",
-								"setPM"
+								"updatePassword"
 							]
 						}
 					},
